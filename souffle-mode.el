@@ -34,4 +34,4 @@
   (setq-local comment-end "")
 )
 
-(provide 'souffle)
+(provide 'souffle-mode)
