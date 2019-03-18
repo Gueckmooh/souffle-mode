@@ -21,7 +21,7 @@
     table))
 
 (setq souffle-highlights
-      '((":-\\|=\\|:\\|\\[\\|\\]\\|\\.type\\|\\.decl\\|\\.comp\\|\\.init\\|\\." . font-lock-keyword-face)
+      '((":-\\|=\\|:\\|\\[\\|\\]\\|\\.type\\|\\.decl\\|\\.comp\\|\\.init\\|\\.input\\|\\.output\\|\\." . font-lock-keyword-face)
         ("\\number\\|symbol" . font-lock-builtin-face)
         (":" . font-lock-constant-face)))
 
@@ -34,4 +34,4 @@
   (setq-local comment-end "")
 )
 
-(provide 'souffle)
+(provide 'souffle-mode)
