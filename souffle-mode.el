@@ -25,7 +25,7 @@
         ("\\number\\|symbol" . font-lock-builtin-face)
         (":" . font-lock-constant-face)))
 
-(define-derived-mode souffle-mode fundamental-mode "souffle"
+(define-derived-mode souffle-mode prog-mode "souffle"
   "major mode for editing Souffle datalog files."
   :syntax-table souffle-mode-syntax-table
   (setq font-lock-defaults '(souffle-highlights))
