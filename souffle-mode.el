@@ -42,12 +42,12 @@
     "Souffle builtin aggregation functions.")
 
 (defconst souffle-types
-    (list "symbol" "number")
+    (list "symbol" "number" "unsigned" "float")
     "Souffle builtin types.")
 
 (defconst souffle-highlights
     (let* (
-              ;; Generate regexp fox each category.
+              ;; Generate regexp for each category.
               (souffle-dot-keywords-regexp
                   (concat
                       "\\.\\("
