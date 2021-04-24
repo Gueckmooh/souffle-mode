@@ -10,7 +10,6 @@
 ;;; Commentary:
 
 ;; Emacs integration for Souffle datalog files
-;; Requires Emacs 24>
 
 ;;; Code:
 
@@ -39,7 +38,7 @@
     "Souffle builtin string functions.")
 
 (defconst souffle-aggregation-functions
-    (list "min" "max" "sum"  "count")
+    (list "min" "max" "sum" "count")
     "Souffle builtin aggregation functions.")
 
 (defconst souffle-types
@@ -75,7 +74,9 @@
 
 
 
-
+;;;;;;;;;;;;;;;;;;;;;;;
+;; define major mode ;;
+;;;;;;;;;;;;;;;;;;;;;;;
 (define-derived-mode souffle-mode prog-mode "souffle"
   "major mode for editing Souffle datalog files."
     :syntax-table souffle-mode-syntax-table
@@ -86,6 +87,8 @@
     (setq-local comment-end "")
  )
 
+
+(add-to-list 'auto-mode-alist '("\\.dl\\'" . souffle-mode))
 
 (provide 'souffle-mode)
 
