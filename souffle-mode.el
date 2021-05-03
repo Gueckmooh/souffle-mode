@@ -13,7 +13,7 @@
 
 ;;; Code:
 
-
+(require 'thingatpt)
 
 (defconst souffle-mode-syntax-table
     (let ((table (make-syntax-table)))
@@ -93,6 +93,32 @@
         (push (cons (match-string 3) (point)) ret)))
     ret))
 
+;;;;;;;;;;;;;;;;
+;; Completion ;;
+;;;;;;;;;;;;;;;;
+
+(defconst
+  souffle-keywords
+  (append
+   souffle-dot-keywords
+   souffle-string-functions
+   souffle-aggregation-functions
+   souffle-types)
+  "Souffle keywords.")
+
+(defun souffle-completion-at-point ()
+  "Completion-at-point function.
+
+Currently just completes keywords.
+
+May be used with Company using the `company-capf' backend."
+  (let ((bounds (bounds-of-thing-at-point 'symbol)))
+    (when bounds
+      (list (car bounds)
+            (cdr bounds)
+            souffle-keywords
+            :exclusive 'no))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; define major mode ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -105,7 +131,10 @@
     (setq-local comment-start "\/\/")
     (setq-local comment-end "")
 
-    (setq-local imenu-create-index-function #'souffle-decls-in-buffer))
+    (setq-local imenu-create-index-function #'souffle-decls-in-buffer)
+    (add-hook 'completion-at-point-functions
+              #'souffle-completion-at-point
+              'append))
 
 
 (add-to-list 'auto-mode-alist '("\\.dl\\'" . souffle-mode))
