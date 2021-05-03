@@ -23,8 +23,6 @@
         table)
     "Souffle mode syntax table.")
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Souffle font locks start here ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -72,20 +70,42 @@
              )
         ))
 
+;;;;;;;;;;;
+;; Imenu ;;
+;;;;;;;;;;;
 
+(defconst
+  souffle-decl-regexp
+  (concat
+   (concat
+    "\\.\\("
+    (regexp-opt souffle-dot-keywords 'words)
+    "\\)")
+   " \\(.+\\)(")
+  "Regex that matches Souffle declarations starting with '.'." )
+
+(defun souffle-decls-in-buffer ()
+  "Find all the declarations in the current buffer."
+  (let ((ret nil))
+    (save-excursion
+      (goto-char 0)
+      (while (search-forward-regexp souffle-decl-regexp nil t)
+        (push (cons (match-string 3) (point)) ret)))
+    ret))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; define major mode ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 (define-derived-mode souffle-mode prog-mode "souffle"
-  "major mode for editing Souffle datalog files."
+  "Major mode for editing Souffle datalog files."
     :syntax-table souffle-mode-syntax-table
-  
+
     (setq font-lock-defaults '(souffle-highlights))
-    
+
     (setq-local comment-start "\/\/")
     (setq-local comment-end "")
- )
+
+    (setq-local imenu-create-index-function #'souffle-decls-in-buffer))
 
 
 (add-to-list 'auto-mode-alist '("\\.dl\\'" . souffle-mode))
