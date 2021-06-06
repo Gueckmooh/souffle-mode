@@ -191,6 +191,8 @@ May be used with Company using the `company-capf' backend."
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; define major mode ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;###autoload
 (define-derived-mode souffle-mode prog-mode "souffle"
   "Major mode for editing Souffle datalog files."
     :syntax-table souffle-mode-syntax-table
@@ -206,6 +208,7 @@ May be used with Company using the `company-capf' backend."
               'append))
 
 
+;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.dl\\'" . souffle-mode))
 
 (provide 'souffle-mode)
