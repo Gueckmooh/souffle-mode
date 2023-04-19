@@ -29,7 +29,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defconst souffle-dot-keywords
-    (list "type" "decl" "comp" "init" "input" "output" "number_type" "symbol_type" "override" "printsize")
+    (list "type" "decl" "comp" "init" "input" "output" "number_type" "symbol_type"
+          "override" "printsize" "include" "once" "functor")
     "Souffle keywords that start with a dot.")
 
 (defconst souffle-string-functions
@@ -61,6 +62,9 @@
 
               (souffle-types-regexp
                   (regexp-opt souffle-types 'symbols))
+
+              (souffle-close-definition-regexp
+                  "\\([a-zA-Z._0-9]+\\)[[:space:]]*(.*)[[:space:]]*:-")
             )
 
         `(
@@ -68,6 +72,7 @@
              (,souffle-string-fuctions-regexp . font-lock-function-name-face)
              (,souffle-aggregation-functions-regexp . font-lock-function-name-face)
              (,souffle-types-regexp . font-lock-type-face)
+             (,souffle-close-definition-regexp 1 font-lock-function-name-face)
              )
         ))
 
